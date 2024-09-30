@@ -1,0 +1,35 @@
+form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: 100px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    padding:2em;
+}
+
+main {
+    display: flex;
+    margin: auto;
+    justify-content: space-evenly;
+}
+
+section {
+    display: flex;
+    width: 40%;
+}
+
+#or {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 5%;
+}

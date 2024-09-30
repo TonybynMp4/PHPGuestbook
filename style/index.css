@@ -1,0 +1,15 @@
+main {
+    width: 60%;
+    margin: 2em auto;
+    padding: 3em;
+    border-radius: 10px;
+    background-color: hsl(217.2 32.6% 17.5%);
+}
+
+#commentForm {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    width: fit-content;
+    margin: 2em auto;
+}
