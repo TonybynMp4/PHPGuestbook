@@ -62,7 +62,7 @@ if (isset($_POST['submit'])) {
                 <button type="submit">Envoyer</button>
             </form>
         <?php else : ?>
-            <p>Connectez-vous pour laisser un commentaire.</p>
+            <p><a href="./login.php">Connectez-vous</a> pour laisser un commentaire.</p>
         <?php endif; ?>
     </main>
 </body>
