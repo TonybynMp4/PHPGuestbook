@@ -1,25 +1,7 @@
-body
-{
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: hsl(240 10% 3.9%);
-    color: #fff;
-}
-
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1em;
     background-color: hsl(240 3.7% 15.9%)
-}
-
-button, .button {
-    color: #000;
-    text-decoration: none;
-    background-color: #fff;
-    padding: 0.5em 1em;
-    border-radius: 5px;
-    margin-inline: 0.5em;
 }

@@ -33,8 +33,3 @@ section {
     align-items: center;
     width: 5%;
 }
-
-.error {
-    color: red;
-    font-size: 0.8em;
-}
