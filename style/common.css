@@ -12,6 +12,7 @@ button, .button {
     background-color: #fff;
     padding: 0.5em 1em;
     border-radius: 5px;
+    border: 1px solid #000;
     margin-inline: 0.5em;
 }
 
@@ -21,5 +22,12 @@ button, .button {
 }
 
 .muted {
-    color: #ccc;
+    color: hsl(215.4 16.3% 46.9%);
+}
+
+.destructive {
+    border: 1px solid black;
+    font-weight: bold;
+    background-color: hsl(0 100% 50%);
+    color:hsl(210 40% 98%);
 }
