@@ -78,19 +78,19 @@ if (isset($_POST['submit'])) {
             <form method="post">
                 <fieldset>
                     <legend>
-                        Créer un compte
+                        Se connecter
                     </legend>
                     <label for=" username">
                         Nom d'utilisateur:
                     </label>
-                    <input type="text" name="username" id="username">
+                    <input required type="text" name="username" id="username">
                     <label for="password">
                         Mot de passe:
                     </label>
-                    <input type="password" name="password" id="password">
+                    <input required type="password" name="password" id="password">
 
-                    <button type="submit" name="submit" value="create">
-                        Créer un compte
+                    <button type="submit" name="submit" value="connect">
+                        Se connecter
                     </button>
                 </fieldset>
             </form>
@@ -104,19 +104,19 @@ if (isset($_POST['submit'])) {
             <form method="post">
                 <fieldset>
                     <legend>
-                        Se connecter
+                        Créer un compte
                     </legend>
-                    <label for=" username">
+                    <label for="username">
                         Nom d'utilisateur:
                     </label>
-                    <input type="text" name="username" id="username">
+                    <input required type="text" name="username" id="username">
                     <label for="password">
                         Mot de passe:
                     </label>
-                    <input type="password" name="password" id="password">
+                    <input required type="password" name="password" id="password">
 
-                    <button type="submit" name="submit" value="connect">
-                        Se connecter
+                    <button type="submit" name="submit" value="create">
+                        Créer un compte
                     </button>
                 </fieldset>
             </form>
