@@ -1,4 +1,5 @@
 <?php
+$error = http_response_code() !== 200 ? http_response_code() : null;
 require_once 'utils/db.php';
 
 session_start();
@@ -24,6 +25,31 @@ if (isset($_POST['submit'])) {
     } else {
         echo "Mot de passe invalide.";
     }
+} else if (isset($_POST['action'])) {
+    if ($_POST['action'] === 'modify') {
+        if (!isset($_POST['id']) || !isset($_POST['content'])) {
+            header('Location: index.php', true, 400);
+            exit();
+        }
+
+        $comment = htmlspecialchars($_POST['content']);
+        // update comment & updated_at
+        $query = "UPDATE comments SET content = :content, updated_at = NOW() WHERE id = :id";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute(['content' => $comment, 'id' => $_POST['id']]);
+
+        header('Location: index.php');
+    } else if ($_POST['action'] === 'delete') {
+        if (!isset($_POST['id'])) {
+            header('Location: ../index.php', true, 400);
+            exit();
+        }
+
+        $query = "DELETE FROM comments WHERE id = :id";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute(['id' => $_POST['id']]);
+        header('Location: index.php');
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -41,6 +67,7 @@ if (isset($_POST['submit'])) {
 <body>
     <?php require_once 'utils/header.php'; ?>
     <main>
+        <div class="error"><?php if (isset($error)) echo $error; ?></div>
         <fieldset>
             <legend>Commentaires</legend>
             <?php
@@ -48,10 +75,41 @@ if (isset($_POST['submit'])) {
                 echo "<p>Aucun commentaire pour le moment.</p>";
             } else {
                 foreach ($comments as $comment) {
-                    echo "<div>";
-                    echo "<h3>{$comment['username']}</h3>";
-                    echo "<p>{$comment['content']}</p>";
-                    echo "</div>";
+                    ?>
+                    <div class="comment">
+                        <div class="top">
+                            <div class="info">
+                                <p class="author">
+                                    <?php echo $comment['username']; ?>
+                                </p>
+                                <p class="muted">Posté le <?php echo $comment['created_at']; ?></p>
+                                <?php if ($comment['updated_at']) {
+                                    echo "<p class=\"muted\" style=\"font-style: italic;\">Modifié</p>";
+                                } ?>
+                            </div>
+                            <?php if (isset($_SESSION['username']) && $_SESSION['username'] === $comment['username']) : ?>
+                                <div class="actions">
+                                    <form method="post" action="index.php">
+                                        <input type="hidden" name="id" value="<?php echo $comment['id']; ?>">
+                                        <button type="submit" name="action" value="modifying">Modifier</button>
+                                        <button class="destructive" type="submit" name="action" value="delete">Supprimer</button>
+                                    </form>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        <div class="content">
+                            <?php if (isset($_POST['action']) && $_POST['action'] === 'modifying' && isset($_POST['id']) && $_POST['id'] == $comment['id']) : ?>
+                                <form method="post">
+                                    <input type="hidden" name="id" value="<?php echo $comment['id']; ?>">
+                                    <textarea name="content" cols="75" rows="5"><?php echo $comment['content']; ?></textarea>
+                                    <button type="submit" name="action" value="modify">Valider</button>
+                                </form>
+                            <?php else : ?>
+                                <p><?php echo $comment['content']; ?></p>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <?php
                 }
             }
             ?>
