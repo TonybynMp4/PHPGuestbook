@@ -1,8 +1,8 @@
 <?php
     $host = 'localhost';
-    $db   = 'test';
+    $db   = 'GuestBook';
     $user = 'pma';
-    $pass = 'test';
+    $pass = null;
 
 
     try {
