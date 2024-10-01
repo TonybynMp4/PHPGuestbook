@@ -1,4 +1,9 @@
 <?php
+$error = null;
+
+if (http_response_code() === 401) {
+    $error = "Vous avez été déconnecté.";
+}
 
 session_start();
 if (isset($_SESSION['username'])) {
@@ -9,7 +14,6 @@ require_once 'utils/db.php';
 
 if (isset($_POST['submit'])) {
     if ($_POST['submit'] == 'create') {
-
         $login_username = $_POST['username'];
         $hashed_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
@@ -20,7 +24,7 @@ if (isset($_POST['submit'])) {
         $user = $stmt->fetch();
 
         if ($user) {
-            echo "<div style='margin: 1em auto; width: fit-content; font-size: 2em; font-weight: bold; color: red;'>Nom d'utilisateur déjà utilisé.</div>";
+            $error = "Nom d'utilisateur déjà utilisé.";
         } else {
             // Insérer l'utilisateur dans la base de données
             $query = "INSERT INTO users (username, password) VALUES (:login_username, :hashed_password)";
@@ -34,6 +38,11 @@ if (isset($_POST['submit'])) {
         $login_username = $_POST['username'];
         $login_password = $_POST['password'];
 
+        if (empty($login_username) || empty($login_password)) {
+            $error =  "Veuillez remplir tous les champs.";
+            exit();
+        }
+
         // Récupérer l'utilisateur
         $query = "SELECT * FROM users WHERE username = :login_username";
         $stmt = $pdo->prepare($query);
@@ -45,7 +54,7 @@ if (isset($_POST['submit'])) {
             $_SESSION['username'] = $login_username;
             header('Location: index.php');
         } else {
-            echo "<div style='margin: 1em auto; width: fit-content; font-size: 2em; font-weight: bold; color: red;'>Mot de passe invalide.</div>";
+            $error = "Mot de passe invalide.";
         }
     }
 }
@@ -63,6 +72,7 @@ if (isset($_POST['submit'])) {
 </head>
 <body>
     <?php require_once 'utils/header.php'; ?>
+    <div class="error"><?php if (isset($error)) echo $error; ?></div>
     <main>
         <section>
             <form method="post">
