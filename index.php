@@ -3,7 +3,7 @@ require_once 'utils/db.php';
 
 session_start();
 
-$query = "SELECT c.content, u.username FROM comments AS c JOIN users AS u ON c.user_id = u.id";
+$query = "SELECT c.id, c.content, c.created_at, c.updated_at, u.username FROM comments AS c JOIN users AS u ON c.user_id = u.id ORDER BY c.created_at DESC";
 $stmt = $pdo->query($query);
 $comments = $stmt->fetchAll();
 
