@@ -56,7 +56,7 @@ if (isset($_POST['submit'])) {
             ?>
         </fieldset>
         <?php if (isset($_SESSION['username'])) : ?>
-            <form action="utils/comment.php" method="post" id="commentForm">
+            <form action="utils/createComment.php" method="post" id="commentForm">
                 <label for="content">Ajouter un commentaire:</label>
                 <textarea name="content" id="content" cols="75" rows="5" placeholder="Votre commentaire..." ></textarea>
                 <button type="submit">Envoyer</button>
